@@ -3,11 +3,32 @@
 
 // Клас OrderTracker відповідає за відстеження замовлень
 class OrderTracker {
+  static #instance = null
   // Приватне статичне instance поле для збереження єдиного екземпляра класу початкове значення null
+static #orders = []
   // Приватне статичне orders поле для збереження списку замовлень початкове значення []
   /**
    * Статичний метод create використовується для створення єдиного екземпляра класу
    */
+
+  constructor() {
+    OrderTracker.#instance = this
+  }
+  
+  static create() {
+    if (!OrderTracker.#instance) {
+      new OrderTracker()
+    }
+    return OrderTracker.#instance
+  }
+
+  static add(item) {
+    OrderTracker.#orders.push(item)
+  }
+
+  static get() {
+    return OrderTracker.#orders
+  }
   // Перевіряємо, чи є вже створений екземпляр класу
   // Якщо немає, створюємо новий екземпляр
   // Інакше повертаємо єдиний екземпляр класу
@@ -22,15 +43,15 @@ class OrderTracker {
 console.log("Завдання 1 ====================================");
 // Після виконання розкоментуйте код нижче
 
-// Створюємо єдиний екземпляр класу OrderTracker
-// const tracker = OrderTracker.create();
+//Створюємо єдиний екземпляр класу OrderTracker
+const tracker = OrderTracker.create();
 
-// Додаємо замовлення до списку
-// OrderTracker.add("Телефон");
-// OrderTracker.add("Ноутбук");
+//Додаємо замовлення до списку
+OrderTracker.add("Телефон");
+OrderTracker.add("Ноутбук");
 
-// Отримуємо список замовлень
-// const orders = OrderTracker.get();
+//Отримуємо список замовлень
+const orders = OrderTracker.get();
 
-// Виводимо список замовлень в консоль
-// console.log(orders);
+//Виводимо список замовлень в консоль
+console.log(orders);
